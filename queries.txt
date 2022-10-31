@@ -25,3 +25,5 @@ set timezone = 'America/Los_Angeles';
 
 insert into cwd_directory (id,directory_name,lower_directory_name,created_date,updated_date,active) values(1,'LDAP', 'ldap', '2022-04-05 20:20:25-07', '2022-09-19 01:02:25-07',
 2);
+select current_timestamp;
+update cwd_directory set created_date='2022-04-05 12:40:47.910466+05:30' where id=1;
