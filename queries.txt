@@ -19,3 +19,6 @@ Create table cwd_directory(id numeric(18,0) Primary Key, directory_name varchar(
 updated_date timestamptz, active numeric(9,0));
 
 \d cwd_directory -- describe the table
+
+show timezone;
+set timezone = 'America/Los_Angeles';
