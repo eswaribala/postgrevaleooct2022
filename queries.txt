@@ -32,3 +32,6 @@ update cwd_directory set created_date='2022-04-05 12:40:47.910466+05:30' where i
 create table cwd_synchronization_token(directory_id numeric(18,0) references cwd_directory(id), synch_status_token text);
 
 insert into cwd_synchronization_token(directory_id,synch_status_token)values(1,'available');
+
+create table cwd_user(id numeric(18,0) primary key, directory_id numeric(18,0) references cwd_directory(id), user_name varchar(255),
+lower_user_name varchar(255));
