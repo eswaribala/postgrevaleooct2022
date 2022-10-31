@@ -17,3 +17,5 @@ select 56+77;
 
 Create table cwd_directory(id numeric(18,0) Primary Key, directory_name varchar(255), lower_directory_name varchar(255), created_date timestamptz,
 updated_date timestamptz, active numeric(9,0));
+
+\d cwd_directory -- describe the table
