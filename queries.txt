@@ -2,3 +2,7 @@ psql -h localhost -d postgres -U postgres -p 5432 -W
 select datname,oid from pg_database where datname='postgres';
 .\initdb.exe -D c:/democluster/postgresql/14/data
 
+Change the server port in data folder config file
+.\pg_ctl.exe start -D e:\PostgreSQL\14\data
+Server started
+psql -h localhost -d postgres  -p 5436 -W
