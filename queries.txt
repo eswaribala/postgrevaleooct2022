@@ -6,3 +6,8 @@ Change the server port in data folder config file
 .\pg_ctl.exe start -D e:\PostgreSQL\14\data
 Server started
 psql -h localhost -d postgres  -p 5436 -W
+
+\l list the databases
+\c change the database
+\dt list the tables
+select version();
