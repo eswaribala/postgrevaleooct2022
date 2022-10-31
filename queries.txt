@@ -11,3 +11,6 @@ psql -h localhost -d postgres  -p 5436 -W
 \c change the database
 \dt list the tables
 select version();
+select current_date;
+select 56+77;
+\q quit the data cluster
