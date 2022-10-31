@@ -1,2 +1,4 @@
 psql -h localhost -d postgres -U postgres -p 5432 -W
 select datname,oid from pg_database where datname='postgres';
+.\initdb.exe -D c:/democluster/postgresql/14/data
+
