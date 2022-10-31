@@ -27,3 +27,6 @@ insert into cwd_directory (id,directory_name,lower_directory_name,created_date,u
 2);
 select current_timestamp;
 update cwd_directory set created_date='2022-04-05 12:40:47.910466+05:30' where id=1;
+
+#foreign key
+create table cwd_synchronization_token(directory_id numeric(18,0) references cwd_directory(id), synch_status_token text);
