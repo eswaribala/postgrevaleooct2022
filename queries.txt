@@ -35,3 +35,9 @@ insert into cwd_synchronization_token(directory_id,synch_status_token)values(1,'
 
 create table cwd_user(id numeric(18,0) primary key, directory_id numeric(18,0) references cwd_directory(id), user_name varchar(255),
 lower_user_name varchar(255));
+
+alter table cwd_user add constraint unique_key unique(lower_user_name); 
+
+create table app_user(id numeric(18,0) primary key, user_key varchar(255),
+lower_user_name varchar(255) references cwd_user(lower_user_name));
+
