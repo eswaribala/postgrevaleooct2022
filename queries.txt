@@ -269,3 +269,5 @@ WHERE
 ORDER BY
     tablename,
     indexname;
+    
+create index titlehashindex on courses using Hash(title);
