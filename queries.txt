@@ -241,11 +241,15 @@ Create table Stock(Invoice_No bigint NOT NULL DEFAULT nextval('invoice_no_seq') 
 
 insert into Stock (DOP,Qty,Cost,Product_Id,Regional_Code) values('2021-02-22',65,45000,1,44);
 
+select p.product_name,l.address,s.qty,s.cost  from stock s inner join product p on s.product_id=p.product_id inner join location l on s.regional_code=l.regional_code;
+
 
 create view stock_product_loc_view as select p.product_name,l.address,s.qty,s.cost  from stock s inner join product p on s.product_id=p.product_id inner join location l on s.regional_code=l.regional_code;
 
 
 
-select p.product_name,l.address,s.qty,s.cost  from stock s inner join product p on s.product_id=p.product_id inner join location l on s.regional_code=l.regional_code;
+
+
+create materialized view stock_product_loc_mview as select p.product_name,l.address,s.qty,s.cost  from stock s inner join product p on s.product_id=p.product_id inner join location l on s.regional_code=l.regional_code;
 
 Refresh MATERIALIZED view stock_product_loc_mview;
