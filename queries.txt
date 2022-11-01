@@ -73,3 +73,117 @@ name FullName);
 
 insert into member (name) values(('Parameswari','bala',''));
 
+
+#ts vector and ts query
+CREATE TABLE courses
+(id SERIAL PRIMARY KEY, 
+title VARCHAR(80) NOT NULL, 
+description VARCHAR(200) NOT NULL);
+INSERT INTO courses (title, description) VALUES
+  ('Improve your sales skills', 'A complete course that will help you to improve your sales skills'),
+  ('Intro to Computer Science', 'Understand how computers work'),
+  ('Law 101', 'Have you ever wondered doing some Law?'),
+  ('Natural Sciences the easy way', 'Your guide to understand the world'),
+  ('Mathematics: a gentle introduction', 'Numbers are easy'),
+  ('The crash course of Data Science', 'Be a data scientist in 5 weeks'),
+  ('Sales crash course', 'Yet another course on Sales'),
+  ('Java in a nutshell', 'Learn Java in 21 days'),
+  ('Ruby programming language', 'DDH sales Ruby, but could you buy it?'),
+  ('Sales matter', 'Really?'),
+  ('History in 3 pages', 'Can you learn history in 3 pages?'),
+  ('Mastering Git', 'Git history will no longer bother you'),
+  ('Cooking like a boss', 'Be the next master chef'),
+  ('Master Chef 3.0', 'Cooking revisited'),
+  ('Functional Programming in a nutshell', 'Learn FP in 4 days');
+
+SELECT * FROM courses;
+
+SELECT 
+    courses.id,
+    courses.title,
+    courses.description
+FROM 
+    courses
+WHERE  
+    courses.title LIKE '%java%' OR courses.description LIKE '%java%'
+
+SELECT to_tsvector('Java in a nutshell')
+
+SELECT to_tsquery('java & in & a & nutshell');
+
+/* true */
+SELECT to_tsquery('java & in & a & nutshell') @@ to_tsvector('Java in a nutshell'); 
+
+/* true */
+SELECT to_tsquery('java') @@ to_tsvector('Java in a nutshell'); 
+
+/* true */
+SELECT to_tsquery('nutshell') @@ to_tsvector('Java in a nutshell'); 
+
+/* false */
+SELECT to_tsquery('batatas') @@ to_tsvector('Java in a nutshell');
+
+SELECT * 
+FROM courses
+WHERE to_tsquery('java') @@ to_tsvector(courses.title)
+
+SELECT
+    ts_rank(
+        to_tsvector('Java in a nutshell'),
+        to_tsquery('java')
+    )
+
+/* 0.06079271 */
+SELECT ts_rank(to_tsvector('Java in a nutshell'), to_tsquery('nutshell')) 
+
+/* 0 */
+SELECT ts_rank(to_tsvector('Java in a nutshell'), to_tsquery('batatas'))
+
+SELECT
+    ts_rank(
+        to_tsvector('Java in a nutshell'),
+        to_tsquery('java')
+    ) AS rank_title,
+    ts_rank(
+        to_tsvector('Learn in 21 days'),
+        to_tsquery('java')
+    ) AS rank_description
+
+SELECT 
+    courses.id,
+    courses.title,
+    courses.description,
+    ts_rank(to_tsvector(courses.title), query) as rank_title,
+    ts_rank(to_tsvector(courses.description), query) as rank_description
+FROM 
+    courses, 
+    to_tsvector(courses.title || courses.description) document,
+    to_tsquery('sales') query
+WHERE query @@ document
+ORDER BY rank_description, rank_title DESC
+
+CREATE EXTENSION pg_trgm
+
+SELECT 
+    to_tsquery('jova') @@ to_tsvector('Java in a nutshell') AS search,
+    SIMILARITY('jova', 'Java in a nutshell') as similarity
+
+SELECT 
+    courses.id,
+    courses.title,
+    courses.description,
+    rank_title,
+    rank_description,
+    similarity
+FROM 
+    courses, 
+    to_tsvector(courses.title || courses.description) document,
+    to_tsquery('curse') query,
+    NULLIF(ts_rank(to_tsvector(courses.title), query), 0) rank_title,
+    NULLIF(ts_rank(to_tsvector(courses.description), query), 0) rank_description,
+    SIMILARITY('curse', courses.title || courses.description) similarity
+WHERE query @@ document OR similarity > 0
+ORDER BY rank_title, rank_description, similarity DESC NULLS LAST
+
+
+
