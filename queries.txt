@@ -200,4 +200,4 @@ FROM
     SIMILARITY('low', courses.title || courses.description) similarity
 WHERE query @@ document OR similarity > 0;
 
-
+select cd.directory_name, cst.synch_status_token  from cwd_directory cd inner join cwd_synchronization_token cst on cd.id = cst.directory_id;
