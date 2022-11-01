@@ -64,4 +64,12 @@ INSERT INTO geometries VALUES
 
 SELECT name, ST_AsText(geom) FROM geometries;
 
+create Type FullName as (FirstName varchar(100),LastName varchar(100),
+MiddleName varchar(100));
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+create table member(id uuid DEFAULT uuid_generate_v4(),
+name FullName);
+
+insert into member (name) values(('Parameswari','bala',''));
 
