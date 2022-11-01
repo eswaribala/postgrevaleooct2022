@@ -253,3 +253,7 @@ create view stock_product_loc_view as select p.product_name,l.address,s.qty,s.co
 create materialized view stock_product_loc_mview as select p.product_name,l.address,s.qty,s.cost  from stock s inner join product p on s.product_id=p.product_id inner join location l on s.regional_code=l.regional_code;
 
 Refresh MATERIALIZED view stock_product_loc_mview;
+
+#try with oracle
+create materialized view stock_product_loc_weeklyview  REFRESH COMPLETE START WITH CURRENT_DATE NEXT CURRENT_DATE + 7 as select p.product_name,l.address,s.qty,s.cost  from stock s inner join product p on s.product_id=p.product_id inner join location l on s.regional_code=l.regional_code;
+
