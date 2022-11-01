@@ -185,5 +185,19 @@ FROM
 WHERE query @@ document OR similarity > 0
 ORDER BY rank_title, rank_description, similarity DESC NULLS LAST
 
+CREATE EXTENSION pg_trgm
+
+SELECT 
+    
+    courses.title,
+    courses.description,
+    similarity
+FROM 
+    courses, 
+    to_tsvector(courses.title || courses.description) document,
+    to_tsquery('low') query,
+    
+    SIMILARITY('low', courses.title || courses.description) similarity
+WHERE query @@ document OR similarity > 0;
 
 
