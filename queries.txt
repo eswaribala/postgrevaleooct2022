@@ -41,3 +41,11 @@ alter table cwd_user add constraint unique_key unique(lower_user_name);
 create table app_user(id numeric(18,0) primary key, user_key varchar(255),
 lower_user_name varchar(255) references cwd_user(lower_user_name));
 
+
+alter table app_user add constraint unique_key_app_user unique(user_key); 
+
+create type featuretype as Enum('ACTIVE','INACTIVE');
+
+create table feature(id numeric(18,0) primary key, feature_name varchar(255), feature_type featuretype, user_key varchar(255)
+references app_user(user_key));
+
