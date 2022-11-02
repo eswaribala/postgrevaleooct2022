@@ -93,3 +93,18 @@ begin
    raise notice 'Employee id 1: % , %', selected_row.name,selected_row.status;
 end; $$
 =================================================================================================
+do
+$$
+declare
+	rec record;
+begin
+	for rec in select *
+			from employee 
+			where employee_no > 0
+			
+	loop
+		raise notice '%, %', rec.name,rec.status;	
+	end loop;
+end;
+$$
+================================================================================================
