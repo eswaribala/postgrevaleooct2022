@@ -274,3 +274,11 @@ create index titlehashindex on courses using Hash(title);
 
 #import the data
 \copy location from 'd:/locationdata.csv' delimiter ',' csv header;
+
+\copy location from 'd:/locationdata.csv' delimiter ',' csv header;
+
+\copy location to 'd:/exportedlocationdata.csv' delimiter ',' csv header;
+========================================================
+\copy (select row_to_json(location_row) from (select regional_code,address,contact_number from location) location_row) TO 'd:/data.json'
+
+\copy crudeoil from 'd:/crudeoilprice.json'
