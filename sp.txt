@@ -50,4 +50,33 @@ begin
    -- show the Location
    raise notice 'Location With Regional Code % has address %', v_regional_code, v_address;
 end; $$
+=============================================================================================
+do $$ 
+<<outer_block>>
+declare
+  counter integer := 1000;
+begin
+   counter := counter + 1;
+   raise notice 'The current value of the counter is %', counter;
+   <<inner_block1>>
+   declare
+       counter integer := 5000;
+   begin
+       counter := counter + 10;
+       raise notice 'Counter in the subblock is %', inner_block1.counter;
+       raise notice 'Counter in the outer block is %', outer_block.counter;
+   end inner_block1;
+  <<inner_block2>>
+   declare
+       counter integer := 5000;
+   begin
+       counter := counter + 10;
+       raise notice 'Counter in the subblock is %', inner_block2.counter;
+       raise notice 'Counter in the outer block is %', outer_block.counter;
+   end inner_block2;
+
+   raise notice 'Counter in the outer block is %', counter;
+   
+end outer_block $$;
+======================================================================================================
 
