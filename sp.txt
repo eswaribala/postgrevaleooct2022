@@ -9,3 +9,16 @@ begin
 end;
 $$;
 ===================================================================================
+do 
+$$
+declare
+   location_count integer;
+   v_contact_number integer;
+begin 
+   select count(*) into location_count
+   from location;
+   select count(DISTINCT(contact_number)) into v_contact_number from location;
+   raise notice 'The number of locations available and unique mobile numbers: %, %', location_count, v_contact_number;
+end;
+$$;
+=========================================================================================================================
