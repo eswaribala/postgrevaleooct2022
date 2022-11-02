@@ -323,3 +323,17 @@ CREATE TABLE tran_two PARTITION OF transaction FOR VALUES FROM (251000) TO (5000
 CREATE TABLE tran_three PARTITION OF transaction FOR VALUES FROM (500001) TO (1000000);
 
 insert into transaction (amount,dot) values (10000, now());
+
+
+#multi level
+Multi level partition
+CREATE TABLE Order11(Order_Id bigserial, status TEXT, amount NUMERIC) PARTITION BY LIST(status);
+CREATE TABLE order_active PARTITION OF Order11 FOR VALUES IN ('ACTIVE','RECURRING','COMPLETED') PARTITION BY RANGE(amount);
+CREATE TABLE order_amount_small PARTITION OF order_active FOR VALUES FROM (MINVALUE) TO (1000) PARTITION BY HASH(Order_Id);
+CREATE TABLE order_part11 PARTITION OF order_amount_small FOR VALUES WITH (modulus 2, remainder 0);
+CREATE TABLE order_part12 PARTITION OF order_amount_small FOR VALUES WITH (modulus 2, remainder 1);
+CREATE TABLE order_other PARTITION OF Order11 DEFAULT PARTITION BY RANGE(amount);
+CREATE TABLE order_amount_large PARTITION OF order_other FOR VALUES FROM (1001) TO (MAXVALUE) PARTITION BY HASH(Order_Id);
+CREATE TABLE order_part21 PARTITION OF order_amount_large FOR VALUES WITH (modulus 2, remainder 0);
+CREATE TABLE order_part22 PARTITION OF order_amount_large FOR VALUES WITH (modulus 2, remainder 1);
+
