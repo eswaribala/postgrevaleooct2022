@@ -36,3 +36,18 @@ begin
 end $$;
 ===============================================================================================================
 
+do $$ 
+declare
+   v_regional_code location.regional_code%type;
+   v_address location.address%type;
+begin 
+   -- get data of the location id 100
+   select regional_code,address into v_regional_code,v_address
+   from location
+   
+   where regional_code = 100;
+   
+   -- show the Location
+   raise notice 'Location With Regional Code % has address %', v_regional_code, v_address;
+end; $$
+
