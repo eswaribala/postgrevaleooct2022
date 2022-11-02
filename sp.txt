@@ -108,3 +108,25 @@ begin
 end;
 $$
 ================================================================================================
+do
+$$
+declare
+	rec record;
+begin
+	for rec in select *
+			from employee 
+			where employee_no > 0
+			
+	loop
+		raise notice '%, %', rec.name,rec.status;	
+	end loop;
+	for rec in select *
+			from location 
+			
+			
+	loop
+		raise notice '%, %', rec.regional_code,rec.address;	
+	end loop;
+end;
+$$
+============================================================================================================
