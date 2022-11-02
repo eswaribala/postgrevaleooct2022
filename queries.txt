@@ -282,3 +282,5 @@ create index titlehashindex on courses using Hash(title);
 \copy (select row_to_json(location_row) from (select regional_code,address,contact_number from location) location_row) TO 'd:/data.json'
 
 \copy crudeoil from 'd:/crudeoilprice.json'
+
+\copy (select regional_code from location) to 'd:/regionaldata.csv' delimiter ',' csv header;
