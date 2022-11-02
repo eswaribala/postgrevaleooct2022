@@ -271,3 +271,6 @@ ORDER BY
     indexname;
     
 create index titlehashindex on courses using Hash(title);
+
+#import the data
+\copy location from 'd:/locationdata.csv' delimiter ',' csv header;
