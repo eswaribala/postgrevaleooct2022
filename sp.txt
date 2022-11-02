@@ -79,4 +79,17 @@ begin
    
 end outer_block $$;
 ======================================================================================================
-
+do $$ 
+declare
+   selected_row employee%rowtype; 
+begin 
+   -- get row from employee
+   select *
+   from employee
+   into selected_row
+   where employee_no=1;
+   
+   -- show the employee title
+   raise notice 'Employee id 1: % , %', selected_row.name,selected_row.status;
+end; $$
+=================================================================================================
