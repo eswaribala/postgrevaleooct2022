@@ -1,0 +1,11 @@
+do 
+$$
+declare
+   location_count integer;
+begin 
+   select count(*) into location_count
+   from location;
+   raise notice 'The number of locations available: %', location_count;
+end;
+$$;
+===================================================================================
