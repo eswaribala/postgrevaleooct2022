@@ -337,3 +337,11 @@ CREATE TABLE order_amount_large PARTITION OF order_other FOR VALUES FROM (1001) 
 CREATE TABLE order_part21 PARTITION OF order_amount_large FOR VALUES WITH (modulus 2, remainder 0);
 CREATE TABLE order_part22 PARTITION OF order_amount_large FOR VALUES WITH (modulus 2, remainder 1);
 
+
+#backup and restore
+
+
+pg_dump.exe -U admin -d inventorydb -f c:/backup/invdb_backup.sql
+===================================================================
+psql.exe -U postgres -d inventorydb - W -f c:/backup/invdb_backup.sql
+
