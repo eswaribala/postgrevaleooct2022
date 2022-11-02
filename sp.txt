@@ -130,3 +130,20 @@ begin
 end;
 $$
 ============================================================================================================
+do $$
+declare
+  selected_row employee%rowtype;
+  p_employee_no employee.employee_no%TYPE := 100;
+begin  
+
+  select * from employee
+  into selected_row
+  where employee_no = p_employee_no;
+  
+  if not found then
+     raise notice 'The employee % could not be found',p_employee_no;
+  else
+     raise notice 'The employee % is %', p_employee_no,selected_row.name;
+  end if;
+end $$
+=====================================================================================================
