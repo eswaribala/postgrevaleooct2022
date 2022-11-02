@@ -313,4 +313,13 @@ insert into employee (Name,Status) values('Shantha','SL');
 
 insert into employee (Name,Status) values('Arun','Left');
 
+#range patition
+RANGE Partition
+create table transaction(Transaction_Id bigserial primary key,
+Amount bigint, DOT date) PARTITION BY RANGE(Transaction_Id);
 
+CREATE TABLE tran_first PARTITION OF transaction FOR VALUES FROM (MINVALUE) TO (250000);
+CREATE TABLE tran_two PARTITION OF transaction FOR VALUES FROM (251000) TO (500000);
+CREATE TABLE tran_three PARTITION OF transaction FOR VALUES FROM (500001) TO (1000000);
+
+insert into transaction (amount,dot) values (10000, now());
