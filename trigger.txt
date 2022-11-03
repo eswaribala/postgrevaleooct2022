@@ -46,5 +46,5 @@ VALUES ('TN-02-3548', 'blue','Hyundai i10');
 
 UPDATE vehicle
 SET color = 'Brown'
-WHERE re_no = 'TN-02-3548';
+WHERE reg_no = 'TN-02-3548';
 ======================================================
