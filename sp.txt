@@ -201,3 +201,18 @@ BEGIN
 END  
 $$; 
 CALL updatecustomer(8,null,'InActive') 
+============================================
+CREATE OR REPLACE PROCEDURE DeleteCustomer
+(  
+    p_customerId IN customer.customerid%type  
+  
+)  
+LANGUAGE plpgsql AS  
+$$  
+BEGIN         
+   delete from customer where customerId=p_customerId;
+  
+END  
+$$; 
+
+CALL deletecustomer(7)  
