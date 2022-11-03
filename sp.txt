@@ -268,10 +268,7 @@ declare
 begin
 	-- get the age based on customer_id 
 	
-	select datediff(year,p_from_date,dob)
-	into age
-	from customer 
-	where customerid= p_customer_id; 
+	SELECT DATE_PART('year', p_from_date) - DATE_PART('year', dob::date)  into age from customer  where customerid=p_customer_id;
 	-- return the age
 	return age;
 end; $$
