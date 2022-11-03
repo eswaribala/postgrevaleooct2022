@@ -166,4 +166,24 @@ for row in select * from employee
 end loop;
 end $$
 ==================================================================================
+Create Type CustomerStatus As Enum('Active','InActive');
+create table Customer(CustomerId bigserial primary key,
+name varchar(255), status CustomerStatus,DOB date);
+CREATE OR REPLACE PROCEDURE AddCustomer
+(  
+    p_customerId OUT customer.customerid%type,  
+    p_name customer.name%type,  
+    p_status customer.status%type,  
+    p_dob DATE  
+)  
+LANGUAGE plpgsql AS  
+$$  
+BEGIN         
+   INSERT INTO Customer (Name,Status,DOB) VALUES   
+    (p_name,  
+     p_status,
+     p_dob
+    ) RETURNING CustomerId INTO p_customerId;  
+END  
+$$; 
 
