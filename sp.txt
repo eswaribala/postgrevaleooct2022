@@ -187,3 +187,4 @@ BEGIN
 END  
 $$; 
 
+CALL AddEmployee(null,'Peter Parker','1997-10-01','New York' ,'Web Developer','2020-11-01')  
