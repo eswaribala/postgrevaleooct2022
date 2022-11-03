@@ -187,3 +187,17 @@ BEGIN
 END  
 $$; 
 CALL addcustomer(0,'Parameswari','Active','1970-12-02')  
+================================================================
+CREATE OR REPLACE PROCEDURE UpdateCustomer
+(  
+    p_customerId IN customer.customerid%type,  
+    p_name OUT customer.name%type,  
+    p_status IN OUT customer.status%type
+)  
+LANGUAGE plpgsql AS  
+$$  
+BEGIN         
+   update customer set status=p_status where customerId=p_customerId RETURNING name,status INTO p_name,p_status;  
+END  
+$$; 
+CALL updatecustomer(8,null,'InActive') 
