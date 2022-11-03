@@ -216,3 +216,28 @@ END
 $$; 
 
 CALL deletecustomer(7)  
+====================================
+CREATE OR REPLACE PROCEDURE BulkInsertLocation()  
+LANGUAGE plpgsql AS  
+$$  
+Declare 
+ row record;
+BEGIN         
+   Create table TempLocation(Regional_Code smallint primary key , Address text not null, Contact_Number bigint);
+
+copy templocation from 'd:/locationdata.csv' delimiter ',' csv header;
+
+for row in select * from templocation 
+     
+  loop
+
+  if row.address != 'Trichy'  found then
+     insert into location(regional_code,address,contact_number) values(row.regional_code,row.address,row.contact_number);
+  end if;
+
+  
+end loop;
+ drop table templocation;
+  
+END  
+$$; 
