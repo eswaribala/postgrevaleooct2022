@@ -147,3 +147,23 @@ begin
   end if;
 end $$
 =====================================================================================================
+do $$
+
+declare
+  row record;
+  
+begin  
+for row in select * from employee  
+     
+  loop
+
+  if row.status = 'Project'  found then
+     raise notice 'The employee could not be found';
+  else
+     raise notice 'The employee % is %', row.employee_no,row.name;
+  end if;
+  
+end loop;
+end $$
+==================================================================================
+
