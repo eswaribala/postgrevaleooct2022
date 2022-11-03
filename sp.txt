@@ -186,5 +186,4 @@ BEGIN
     ) RETURNING CustomerId INTO p_customerId;  
 END  
 $$; 
-
-CALL AddEmployee(null,'Peter Parker','1997-10-01','New York' ,'Web Developer','2020-11-01')  
+CALL addcustomer(0,'Parameswari','Active','1970-12-02')  
