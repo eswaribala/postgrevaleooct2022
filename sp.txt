@@ -259,4 +259,20 @@ $$;
 
 select get_customer_count();
 ==================================================
-
+create or replace function get_age(p_customer_id bigint,p_from_date date)
+returns integer 
+language plpgsql
+as $$
+declare 
+	age smallint;
+begin
+	-- get the age based on customer_id 
+	
+	select datediff(year,p_from_date,dob)
+	into age
+	from customer 
+	where customerid= p_customer_id; 
+	-- return the age
+	return age;
+end; $$
+===========================================================
