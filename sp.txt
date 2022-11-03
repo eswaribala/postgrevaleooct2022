@@ -280,12 +280,12 @@ declare
 	 data text default '';
 	 row   record;
   -- declare the cursor
-	 cur_customers cursor() 
+	 cur_customers cursor
 		 for select name,status,dob
 		 from customer;
 begin
    -- open the cursor
-   open cur_customers();
+   open cur_customers;
 	
    loop
     -- fetch row into the film
