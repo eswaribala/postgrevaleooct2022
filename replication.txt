@@ -1,0 +1,9 @@
+#5432
+CREATE TABLE LogicalReplicationTest (id int PRIMARY KEY);
+INSERT INTO LogicalReplicationTest VALUES (generate_series(1,10000));
+SELECT count(*) FROM LogicalReplicationTest;
+CREATE PUBLICATION testpub FOR TABLE LogicalReplicationTest;
+
+#5436
+CREATE TABLE LogicalReplicationTest (id int PRIMARY KEY);
+CREATE SUBSCRIPTION testsub CONNECTION 'host=localhost port=5432 user=postgres password=vignesh dbname=testdb' PUBLICATION testpub;
