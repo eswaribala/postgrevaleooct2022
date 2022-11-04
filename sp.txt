@@ -308,15 +308,9 @@ end; $$
 CREATE OR REPLACE PROCEDURE BulkExportLocation()  
 LANGUAGE plpgsql AS  
 $$ 
-Declare
-v_current_date date; 
-v_date varchar(255);
-v_path varchar(255);
+
 BEGIN        
- select current_date into v_current_date;
- v_date := TO_CHAR(v_current_date,'yyyy-MM-dd');
- v_path := 'd:/exportedlocationdata'+v_date+'.csv';
- Execute format ('copy location to' +v_path +'delimiter ',' csv header');
-  
+ 
+copy location to 'd:/exportedlocationdata.csv' delimiter ',' csv header;  
 END  
 $$; 
